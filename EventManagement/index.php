@@ -66,7 +66,7 @@ $shows = getShows($conn);
 				  
 				    <?php
 						  foreach($genres as $key=>$value) {
-						     echo "<option value=".$key.">".$genres[$key]."</option>"; 	
+						     echo "<option value=".$key.">".$genres[$key]["genre_name"]."</option>"; 	
 						  }
 			  		 ?>
 				  
@@ -98,7 +98,7 @@ $shows = getShows($conn);
 				  
 				    <?php
 						  foreach($shows as $key=>$value) {
-						     echo "<option value=".$key.">".$shows[$key]."</option>"; 	
+						     echo "<option value=".$key.">".$shows[$key]["show_name"]."</option>"; 	
 						  }
 			  		 ?>
 				  

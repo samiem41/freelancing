@@ -29,9 +29,9 @@ include 'library.php';
   
   <div><a href="managecontent.php">Manage Contents</a></div>
   
-  <div><a href="#">Manage Genres</a></div>
+  <div><a href="managegenre.php">Manage Genres</a></div>
   
-  <div><a href="#">Manage Shows</a></div>
+  <div><a href="manageshow.php">Manage Shows</a></div>
   
 
 </div>

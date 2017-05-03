@@ -131,7 +131,7 @@ function getShowTiming($conn){
 
 function getGenres($conn){
 	$genres = array();
-	$sql = "select id,genre_name from genre";
+	$sql = "select id,genre_name,image from genre";
 
 	if ($result = $conn->query($sql)) {
 
@@ -140,7 +140,12 @@ function getGenres($conn){
 
 		if($row_cnt>0) {
 			while($row = $result->fetch_assoc()) {
-				$genres[$row["id"]] = $row["genre_name"];
+
+				$genredata = array();
+				$genredata["genre_name"] = $row["genre_name"];
+				$genredata["image"] = $row["image"];
+				$genredata["id"] = $row["id"];
+				$genres[$row["id"]] = $genredata;
 			}
 		}
 	}
@@ -199,7 +204,7 @@ function getContents($conn){
 
 function getShows($conn){
 	$shows = array();
-	$sql = "select id,show_name from shows where show_status = 'Active'";
+	$sql = "select id,show_name,show_start_date,show_end_date,show_status,show_description from shows where show_status = 'Active'";
 
 	if ($result = $conn->query($sql)) {
 
@@ -208,7 +213,15 @@ function getShows($conn){
 
 		if($row_cnt>0) {
 			while($row = $result->fetch_assoc()) {
-				$shows[$row["id"]] = $row["show_name"];
+				$showdata = array();
+				$showdata["id"] = $row["id"];
+				$showdata["show_name"] = $row["show_name"];
+				$showdata["start_date"] = $row["show_start_date"];
+				$showdata["end_date"] = $row["show_end_date"];
+				$showdata["status"] = $row["show_status"];
+				$showdata["description"] = $row["show_description"];
+
+				$shows[$row["id"]] = $showdata;
 			}
 		}
 	}
@@ -238,6 +251,26 @@ function saveVenue($venueName,$imageName,$conn) {
 	}
 	$sql = "INSERT INTO VENUE (venue_name, image)
 			VALUES ('$venueName','$imageName')";
+	
+	if ($conn->query($sql) === TRUE) {
+		$recordSaved = true;
+		echo "New record created successfully";
+	} else {
+		echo "Error: " . $sql . "<br>" . $conn->error;
+	}
+	
+	return $recordSaved;
+	
+}
+
+function saveGenre($genreName,$imageName,$conn) {
+	$recordSaved = false;
+	
+	if($imageName == NULL){
+		$imageName = '';
+	}
+	$sql = "INSERT INTO GENRE (genre_name, image)
+			VALUES ('$genreName','$imageName')";
 	
 	if ($conn->query($sql) === TRUE) {
 		$recordSaved = true;
